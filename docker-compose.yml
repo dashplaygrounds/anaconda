@@ -1,0 +1,17 @@
+services:
+  anaconda:
+    image: continuumio/anaconda3
+    container_name: anaconda
+    volumes:
+    - /opt/notebooks:/opt/notebooks
+    - anaconda-vol:/opt/notebooks
+    ports:
+    - 8888:8888
+    command: bash -c "conda install jupyterlab -y --quiet &&  mkdir -p /opt/notebooks && jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
+    networks:
+      - spnet
+volumes:
+  anaconda-vol:
+networks:
+  spnet:
+    external: true
